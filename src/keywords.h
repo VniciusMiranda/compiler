@@ -1,0 +1,34 @@
+/* Created by vinicius on 9/23/24. */
+
+#ifndef KEYWORDS_H
+#define KEYWORDS_H
+
+#define IDENTIFIER 1
+
+enum Keyword
+{
+    KEYWORD_PROGRAMA = 2,
+    KEYWORD_CAR = 3,
+    KEYWORD_INT = 4,
+    KEYWORD_RETORNE = 5,
+    KEYWORD_LEIA = 6,
+    KEYWORD_ESCREVA = 7,
+    KEYWORD_NOVALINHA = 8,
+    KEYWORD_SE = 9,
+    KEYWORD_ENTAO = 10,
+    KEYWORD_SENAO = 11,
+    KEYWORD_ENQUANTO = 12,
+    KEYWORD_EXECUTE = 13
+};
+
+enum Chars
+{
+    VIRGULA = 20,
+    ABRE_CHAVES = 21,
+    FECHA_CHAVES = 22,
+    PONTO_VIRGULA = 23,
+    ABRE_PARENTESES = 24,
+    FECHA_PARENTESES = 25,
+};
+
+#endif /* KEYWORDS_H */
