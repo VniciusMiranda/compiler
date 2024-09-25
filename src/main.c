@@ -17,9 +17,9 @@ extern FILE *yyin;
 const char *print_only_errors_str = "--print-only-errors";
 bool print_only_errors = false;
 
-const char *get_token_name(int token);
 void handle_args(int argc, char *argv[]);
 void process_test_file(char *filename);
+const char *get_token_name(int token);
 
 
 int main(int argc, char *argv[])
