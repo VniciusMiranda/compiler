@@ -11,6 +11,14 @@ WHITESPACE      [\t\n\r' ']
 
 %%
 
+{WHITESPACE}+                       { /* clear whitespaces */ }
+
+
+[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/] { /* ignore valid comment */ }
+"\/\*"                              { return ERROR_UNCLOSED_COMMENT; }
+"\*\/"                              { return ERROR_UNCLOSED_COMMENT; }
+
+
 "programa"                          { return KEYWORD_PROGRAMA; }
 "car"                               { return KEYWORD_CAR; }
 "int"                               { return KEYWORD_INT; }
@@ -48,9 +56,6 @@ WHITESPACE      [\t\n\r' ']
 ")"     { return FECHA_PARENTESES; }
 
 
-
-{WHITESPACE}+                       { /* clear whitespaces */ }
-
 [a-zA-Z_][0-9a-zA-Z_]*              { return IDENTIFIER; }
 
 [+-]?{DIGIT}+                       { return TYPE_INT; }
@@ -58,12 +63,6 @@ WHITESPACE      [\t\n\r' ']
 \"([^"\\\n]|\\.)*\"                 { return TYPE_STRING; }
 \"([^"]|\\.)*\"                     { return ERROR_MULTILINE_STRING; }
 \"                                  { return ERROR_UNCLOSED_STRING; }
-
-[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/] { /* ignore valid comment */ }
-"\/\*"                              { return ERROR_UNCLOSED_COMMENT; }
-"\*\/"                              { return ERROR_UNCLOSED_COMMENT; }
-
-
 
 . { return ERROR_INVALID_CHARACTER; }
 
