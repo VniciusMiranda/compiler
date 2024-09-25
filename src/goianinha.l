@@ -24,20 +24,8 @@ WHITESPACE      [\t\n\r' ']
 "enquanto"                          { return KEYWORD_ENQUANTO; }
 "execute"                           { return KEYWORD_EXECUTE; }
 
-{WHITESPACE}+                       { /* clear whitespaces */ }
-
-[a-zA-Z_][0-9a-zA-Z_]*              { return IDENTIFIER; }
-
-[+-]?{DIGIT}+                       { return TYPE_INT; }
-
-\"([^"\\\n]|\\.)*\"                 { return TYPE_STRING; }
-\"([^"]|\\.)*\"                     { return ERROR_MULTILINE_STRING; }
-\"                                  { return ERROR_UNCLOSED_STRING; }
-
-[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/] { /* ignore valid comment */ }
-"\/\*"                              { return ERROR_UNCLOSED_COMMENT; }
-"\*\/"                              { return ERROR_UNCLOSED_COMMENT; }
-
+"ou"    { return OR; }
+"e"     { return AND; }
 
 "+"     { return ADDITION; }
 "-"     { return SUBTRACTION; }
@@ -58,6 +46,24 @@ WHITESPACE      [\t\n\r' ']
 ";"     { return PONTO_VIRGULA; }
 "("     { return ABRE_PARENTESES; }
 ")"     { return FECHA_PARENTESES; }
+
+
+
+{WHITESPACE}+                       { /* clear whitespaces */ }
+
+[a-zA-Z_][0-9a-zA-Z_]*              { return IDENTIFIER; }
+
+[+-]?{DIGIT}+                       { return TYPE_INT; }
+
+\"([^"\\\n]|\\.)*\"                 { return TYPE_STRING; }
+\"([^"]|\\.)*\"                     { return ERROR_MULTILINE_STRING; }
+\"                                  { return ERROR_UNCLOSED_STRING; }
+
+[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/] { /* ignore valid comment */ }
+"\/\*"                              { return ERROR_UNCLOSED_COMMENT; }
+"\*\/"                              { return ERROR_UNCLOSED_COMMENT; }
+
+
 
 . { return ERROR_INVALID_CHARACTER; }
 

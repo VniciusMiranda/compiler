@@ -2,11 +2,12 @@
 
 #include "errors.h"
 
-void handle_error(error_t error, int line)
+void handle_error(error_t error, char *text, int line)
 {
 	switch (error) {
 	case ERROR_INVALID_CHARACTER:
-		printf("ERROR: CARACTERE INVÁLIDO Linha: %d\n", line);
+		printf("ERROR: CARACTERE INVÁLIDO '%s' Linha: %d\n", text,
+		       line);
 		break;
 	case ERROR_UNCLOSED_COMMENT:
 		printf("ERROR: COMENTÁRIO NÃO TERMINA Linha: %d\n", line);

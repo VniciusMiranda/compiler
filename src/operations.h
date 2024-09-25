@@ -17,6 +17,8 @@ enum Operation
     DIFFERENCE = 208,
     GREATER_THAN_EQUALITY = 209,
     LESS_THAN_EQUALITY = 210,
+    OR = 211,
+    AND = 212
 };
 
 #endif /* OPERATIONS_H */

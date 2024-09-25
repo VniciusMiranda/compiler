@@ -16,7 +16,7 @@ enum Error
 
 typedef enum Error error_t;
 
-void handle_error(error_t error, int line);
+void handle_error(error_t error, char* text, int line);
 
 bool is_error(int token);
 

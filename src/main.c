@@ -1,6 +1,8 @@
 /* Created by vinicius on 9/22/24. */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #include "errors.h"
 #include "types.h"
@@ -12,28 +14,62 @@ extern char *yytext;
 extern int yylineno;
 extern FILE *yyin;
 
+const char *print_only_errors_str = "--print-only-errors";
+bool print_only_errors = false;
+
 const char *get_token_name(int token);
 
-int main(int numb_args, char *argv[])
+void handle_args(int argc, char *argv[]);
+
+void process_test_file(char *filename);
+
+int main(int argc, char *argv[])
 {
-	if (numb_args != 2) {
-		printf("Uso correto: executável arquivo_de_teste\n");
+	handle_args(argc, argv);
+	process_test_file(argv[1]);
+	return 0;
+}
+
+void handle_args(int argc, char *argv[])
+{
+	const bool args_boundaries = argc < 2 || argc > 3;
+	const bool help_option_pass = strcmp(argv[1], "--help") == 0;
+	const bool wrong_input_str =
+		(argc == 3 && strcmp(argv[2], print_only_errors_str) != 0);
+
+	if (args_boundaries || wrong_input_str || help_option_pass) {
+		printf(
+			"Uso correto: executável arquivo_de_teste(required) %s(optional)\n",
+			print_only_errors_str);
 		exit(1);
 	}
-	yyin = fopen(argv[1], "r");
+	if (access(argv[1], F_OK) != 0) {
+		printf("O arquivo \"%s\" nao existe\n", argv[1]);
+		exit(1);
+	}
+	if (argc == 3 && strcmp(argv[2], print_only_errors_str) == 0) {
+		print_only_errors = true;
+	}
+}
+
+
+void process_test_file(char *filename)
+{
+	yyin = fopen(filename, "r");
 	int token = yylex();
 	while (token) {
 		if (is_error(token)) {
-			handle_error(token, yylineno);
+			handle_error(token, yytext, yylineno);
 			token = yylex();
 			continue;
 		}
-		printf(
-			"Encontrado o lexema %s pertencente ao token de código %d nome %s linha %d\n",
-			yytext, token, get_token_name(token), yylineno);
+		if (!print_only_errors) {
+			printf(
+				"Encontrado o lexema %s pertencente ao token de código %d nome %s linha %d\n",
+				yytext, token, get_token_name(token), yylineno);
+		}
 		token = yylex();
 	}
-	return 0;
 }
 
 
@@ -122,7 +158,10 @@ const char *get_token_name(int token)
 		return "GREATER_THAN_EQUALITY";
 	case LESS_THAN_EQUALITY:
 		return "LESS_THAN_EQUALITY";
-
+	case OR:
+		return "OR";
+	case AND:
+		return "AND";
 	default:
 		return "TOKEN UNKNOWN";
 	}
