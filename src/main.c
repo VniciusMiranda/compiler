@@ -18,10 +18,9 @@ const char *print_only_errors_str = "--print-only-errors";
 bool print_only_errors = false;
 
 const char *get_token_name(int token);
-
 void handle_args(int argc, char *argv[]);
-
 void process_test_file(char *filename);
+
 
 int main(int argc, char *argv[])
 {
@@ -29,6 +28,7 @@ int main(int argc, char *argv[])
 	process_test_file(argv[1]);
 	return 0;
 }
+
 
 void handle_args(int argc, char *argv[])
 {
