@@ -32,12 +32,8 @@ int main(int argc, char *argv[])
 
 void handle_args(int argc, char *argv[])
 {
-	const bool args_boundaries = argc < 2 || argc > 3;
-	const bool help_option_pass = strcmp(argv[1], "--help") == 0;
-	const bool wrong_input_str =
-		(argc == 3 && strcmp(argv[2], print_only_errors_str) != 0);
-
-	if (args_boundaries || wrong_input_str || help_option_pass) {
+	if (argc < 2 || argc > 3 || strcmp(argv[1], "--help") == 0 || (
+		    argc == 3 && strcmp(argv[2], print_only_errors_str) != 0)) {
 		printf(
 			"Uso correto: executável arquivo_de_teste(required) %s(optional)\n",
 			print_only_errors_str);
